@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Tasks from "./pages/Tasks";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
     return (
@@ -12,9 +14,18 @@ function App() {
 
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/tasks" element={<Tasks />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/login" element={<Login />} />
+
+                <Route 
+                    path="/tasks" 
+                    element={
+                        <ProtectedRoute>
+                            <Tasks />
+                        </ProtectedRoute>
+                    }        
+                />
             </Routes>
         </BrowserRouter>
     );
