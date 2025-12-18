@@ -1,20 +1,23 @@
-import TaskList from "./components/TaskList"; 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Tasks from "./pages/Tasks";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
-    // props to pass to TaskList component
-    const tasks = [
-        "Learn React Basics",
-        "Understand Components",
-        "Build First Project",
-        "Add One more Task",
-        "Add Second Task"
-    ];
-    
     return (
-        <div>
-          <h1>React Task Management</h1>
-          <TaskList tasks={tasks} />
-        </div>
+        <BrowserRouter>
+            <Navbar />
+
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/tasks" element={<Tasks />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
+
 export default App;

@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function TaskList({ tasks }) {
-    const [taskList, setTasksList] = useState(tasks);
+    const [taskList, setTasksList] = useState(() => {
+        const savedTasks = localStorage.getItem("tasks");
+        return savedTasks ? JSON.parse(savedTasks) : tasks;
+    });
+    const [newTask, setNewTask] = useState("");   // new task using input field
 
-    // new task using input field
-    const [newTask, setNewTask] = useState("");
+    // save task to Local Storage whenever taskList changes(on update)
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(taskList));
+    }, [taskList]);
+
 
     const addTask = () => {
         if (newTask.trim() !== "") {
@@ -18,7 +25,6 @@ function TaskList({ tasks }) {
 
                 <h2>My Tasks</h2><hr />
 
-                {/* input field to add new task when keyboard 'Enter' is pressed */}
                 <input
                     type="text"
                     placeholder="Enter New Task"
